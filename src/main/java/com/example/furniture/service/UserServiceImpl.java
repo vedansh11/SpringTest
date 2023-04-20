@@ -1,10 +1,11 @@
 package com.example.furniture.service;
+import com.example.furniture.dto.Data;
 import com.example.furniture.model.UserModel;
+import com.example.furniture.repository.CartRepository;
 import com.example.furniture.repository.UserRepository;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.krysalis.barcode4j.impl.code128.Code128Bean;
-import org.krysalis.barcode4j.impl.upcean.EAN13Bean;
 import org.krysalis.barcode4j.output.bitmap.BitmapCanvasProvider;
 import org.krysalis.barcode4j.tools.UnitConv;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,8 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    CartRepository cartRepository;
 
     @Override
     public ResponseEntity<InputStreamResource> exportReport(String reportFormat) throws FileNotFoundException, JRException {
@@ -112,5 +115,16 @@ public class UserServiceImpl implements UserService {
             ex.printStackTrace();
         }
     }
+
+    @Override
+    public List<Object[]> custom() {
+        return  cartRepository.customQuery();
+    }
+
+    @Override
+    public List<Data> usermodel() {
+        return cartRepository.usermodel();
+    }
+
 
 }

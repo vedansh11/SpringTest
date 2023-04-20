@@ -1,12 +1,13 @@
 package com.example.furniture.controller;
 
+import com.example.furniture.dto.Data;
+
 import com.example.furniture.model.UserModel;
 import com.example.furniture.service.UserService;
 import net.sf.jasperreports.engine.JRException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.*;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,6 +27,16 @@ public class ModelController {
         return Users;
       //  return userService.getallusers();
     }
+
+   @GetMapping("customquery")
+   public List<Object[]> customquery(){
+        return userService.custom();
+   }
+
+   @GetMapping("usermodel")
+   public List<Data> user(){
+        return userService.usermodel();
+   }
 
     @GetMapping("report/{format}")
     public ResponseEntity<InputStreamResource> generateReport(@PathVariable String format) throws JRException, FileNotFoundException {

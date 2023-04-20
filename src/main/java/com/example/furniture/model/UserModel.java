@@ -24,6 +24,8 @@ public class UserModel {
     @Column(name="password", nullable = false)
     private String password;
 
+
+
     public int getUser_id() {
         return user_id;
     }
