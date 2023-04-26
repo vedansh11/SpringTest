@@ -1,8 +1,12 @@
 package com.example.furniture.service;
-import com.example.furniture.dto.Data;
-import com.example.furniture.model.UserModel;
+import com.example.furniture.dto.CartDTO;
+import com.example.furniture.dto.DataDTO;
+import com.example.furniture.model.User;
 import com.example.furniture.repository.CartRepository;
+import com.example.furniture.repository.CartsItemRepository;
 import com.example.furniture.repository.UserRepository;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.krysalis.barcode4j.impl.code128.Code128Bean;
@@ -33,10 +37,16 @@ public class UserServiceImpl implements UserService {
     @Autowired
     CartRepository cartRepository;
 
+    @Autowired
+    CartsItemRepository cartsItemRepository;
+
+    @Autowired
+    private EntityManager entityManager;
+
     @Override
     public ResponseEntity<InputStreamResource> exportReport(String reportFormat) throws FileNotFoundException, JRException {
 
-        List<UserModel> userModels = userRepository.findAll();
+        List<User> userModels = userRepository.findAll();
 
         //Load a file and compile it
         File file = ResourceUtils.getFile("classpath:report.jrxml");
@@ -79,7 +89,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserModel> getallusers() {
+    public List<User> getallusers() {
     return userRepository.findAll();
     }
 
@@ -122,9 +132,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<Data> usermodel() {
-        return cartRepository.usermodel();
+    public List<DataDTO> Data() {
+       return cartRepository.Data();
     }
+
+    @Override
+    public List<CartDTO> getCartData(Integer cartId) {
+        return cartRepository.getCartDetails(cartId);
+    }
+
+//    @Override
+//    public List<CartData> CartData() {
+//        return cartsItemRepository.CartData();
+//    }
+
+
 
 
 }

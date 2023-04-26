@@ -1,8 +1,7 @@
 package com.example.furniture.controller;
 
-import com.example.furniture.dto.Data;
 
-import com.example.furniture.model.UserModel;
+import com.example.furniture.model.User;
 import com.example.furniture.service.UserService;
 import net.sf.jasperreports.engine.JRException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +20,11 @@ public class ModelController {
     @Autowired
     UserService userService;
 
+
+
     @GetMapping("getusers")
-    public List<UserModel>getallUser(){
-        List<UserModel>Users=userService.getallusers();
+    public List<User>getallUser(){
+        List<User>Users=userService.getallusers();
         return Users;
       //  return userService.getallusers();
     }
@@ -33,10 +34,6 @@ public class ModelController {
         return userService.custom();
    }
 
-   @GetMapping("usermodel")
-   public List<Data> user(){
-        return userService.usermodel();
-   }
 
     @GetMapping("report/{format}")
     public ResponseEntity<InputStreamResource> generateReport(@PathVariable String format) throws JRException, FileNotFoundException {

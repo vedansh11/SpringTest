@@ -1,8 +1,9 @@
 package com.example.furniture.service;
 
-import com.example.furniture.dto.Data;
+import com.example.furniture.dto.CartDTO;
+import com.example.furniture.dto.DataDTO;
 
-import com.example.furniture.model.UserModel;
+import com.example.furniture.model.User;
 import net.sf.jasperreports.engine.JRException;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.ResponseEntity;
@@ -15,9 +16,11 @@ public interface UserService {
 
     ResponseEntity<InputStreamResource> exportReport(String reportFormat) throws FileNotFoundException, JRException;
 
-    public List<UserModel> getallusers();
+    public List<User> getallusers();
     public void createBarCode128(String fileName);
-    public List<Object[]>custom();
-    public List<Data>usermodel();
+    public List<Object[]> custom();
+    public List<DataDTO> Data();
+ //  public List<CartData> CartData();
 
+    public List<CartDTO> getCartData(Integer CartId);
 }
